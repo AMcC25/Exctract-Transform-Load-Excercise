@@ -14,31 +14,42 @@ create table westside (
     GRADE TEXT,
     location TEXT
     ); 
-#----Counting As for Westside    
+
+#----Counting As for WESTSIDE
 SELECT id, COUNT(GRADE)
 FROM westside
-WHERE GRADE = 'A';
+WHERE GRADE like 'A';
 
-#----Counting As for Eastside
+#----Counting As for EASTSIDE
 SELECT id, COUNT(GRADE)
 FROM eastside
-WHERE GRADE = 'A';
+WHERE GRADE like 'A';
 
-#----SELECT only As from WESTIDE
-SELECT * FROM westside
-WHERE GRADE = 'A';
+#pick top restaurants WESTSIDE
+SELECT id, year, business, GRADE, location
+from westside
+WHERE GRADE LIKE '%A%';
 
-#----Count Grade by year
+#pick top restaurants EASTSIDE
+SELECT id, year, business, GRADE, location
+from eastside
+WHERE GRADE LIKE '%A%';
+
+#Total List of Restaurants    
 SELECT id, year, business, GRADE, location FROM eastside
 UNION ALL
-SELECT id, year, business, GRADE, location FROM westside;
+SELECT id, year, business, GRADE, location FROM westside
+ORDER BY GRADE;    
+    
+#----Counting As for WESTSIDE by YEAR
+SELECT id, year, COUNT(GRADE)
+FROM westside
+WHERE GRADE like 'A'
+GROUP BY year;
 
-#----Convert Text in order to use = sign--NOT WORKING.  I think this is why we can not get all data for inspections = A. GRADE should not be TEXT but VARCHAR
-#---SELECT * FROM westside
-ALTER TABLE westside
-MODIFY COLUMN GRADE datatype(VARCHAR);
-#---SELECT CONVERT(VARCHAR, GRADE);
+#----Counting As for EASTSIDE by YEAR
+SELECT id, year, COUNT(GRADE)
+FROM eastside
+WHERE GRADE like 'A'
+GROUP BY year;
 
-    
-    
-    
